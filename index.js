@@ -1,3 +1,3 @@
-import { parse } from "./build/parser.js";
+const { parse } = require("./dist/parser.js");
 
-export { parse };
+module.exports = { parse };

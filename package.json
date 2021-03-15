@@ -1,13 +1,14 @@
 {
-  "name": "sql-parser",
+  "name": "sssql2tree",
   "version": "1.0.0",
-  "main": "./lib/parser.js",
+  "main": "index.js",
+  "types": "index.d.ts",
   "author": "Vasiliy Varyukhin",
   "license": "MIT",
   "dependencies": {},
   "scripts": {
-    "build": "node -e \"require('fs').mkdirSync('build', { recursive: true });\" && pegjs --optimize size -o ./build/parser.js sssql.pegjs && parcel build ./index.js --no-source-maps --no-cache",
-    "dev": "",
+    "generate": "pegjs --optimize size -o ./src/parser.js ./src/sssql.pegjs",
+    "build": "npm run generate && parcel build ./src/parser.js --no-source-maps --no-cache",
     "test": "jest"
   },
   "engines": {

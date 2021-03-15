@@ -1,1 +1,1 @@
-export function parse(sql: string): object;
+export function parse(sql: string): any;
