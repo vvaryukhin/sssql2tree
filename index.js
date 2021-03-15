@@ -1,3 +1,3 @@
-const parse = require("./lib/parser.js").parse;
+import { parse } from "./build/parser.js";
 
-module.exports = { parse };
+export { parse };
