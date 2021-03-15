@@ -153,8 +153,19 @@ test("should parse query with dot notation in column name", () => {
   expect(parse(sql)).toStrictEqual(tree);
 });
 
-test("should parse query with string as value", () => {
+test("should parse query with string as value (variant 1)", () => {
   const sql = 'column = "value"';
+  const tree = {
+    type: "node",
+    operator: "=",
+    column: "column",
+    value: "value",
+  };
+  expect(parse(sql)).toStrictEqual(tree);
+});
+
+test("should parse query with string as value (variant 2)", () => {
+  const sql = "column = 'value'";
   const tree = {
     type: "node",
     operator: "=",
@@ -271,6 +282,39 @@ test('should parse "AND" and "OR" operator with parentheses', () => {
         parentheses: true,
       },
     ],
+  };
+  expect(parse(sql)).toStrictEqual(tree);
+});
+
+test("should parse with extra spaces", () => {
+  const sql = "column                     = \r\n          value";
+  const tree = {
+    type: "node",
+    operator: "=",
+    column: "column",
+    value: "value",
+  };
+  expect(parse(sql)).toStrictEqual(tree);
+});
+
+test("should parse with dot in string value", () => {
+  const sql = "column = value.some";
+  const tree = {
+    type: "node",
+    operator: "=",
+    column: "column",
+    value: "value.some",
+  };
+  expect(parse(sql)).toStrictEqual(tree);
+});
+
+test("should parse without spaces", () => {
+  const sql = "column=value";
+  const tree = {
+    type: "node",
+    operator: "=",
+    column: "column",
+    value: "value",
   };
   expect(parse(sql)).toStrictEqual(tree);
 });

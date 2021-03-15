@@ -29,12 +29,11 @@
   }
   
   function recursiveJoin(a) {
-  	return a.map((item, i, array) => {
-      if(Array.isArray(item)) {
-        return recursiveJoin(item);
-      }
-      return item;
-    }).join("");
+    if(Array.isArray(a)) {
+      return a.map(recursiveJoin).join("");
+    }
+
+    return a;
   }
 }
 
@@ -71,7 +70,7 @@ comparison_expr
 primary
   = literal
   / column_ref
-  / "(" _ e:expr _ ")" {
+  / LPAREN _ e:expr _ RPAREN {
  	return { ...e, parentheses: true }
   }; 
  
