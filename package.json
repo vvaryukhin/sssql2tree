@@ -6,7 +6,8 @@
   "license": "MIT",
   "dependencies": {},
   "scripts": {
-    "build": "node -e \"require('fs').mkdirSync('build', { recursive: true });\" && pegjs --optimize size -o ./build/parser.js sssql.pegjs"
+    "build": "node -e \"require('fs').mkdirSync('build', { recursive: true });\" && pegjs --optimize size -o ./build/parser.js sssql.pegjs",
+    "test": "jest"
   },
   "engines": {
     "node": ">=10.12.0"
