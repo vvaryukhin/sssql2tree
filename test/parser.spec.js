@@ -1,4 +1,4 @@
-const { parse } = require("./../dist/parser");
+const { parse } = require("./../src/parser");
 
 test("should parse simple query", () => {
   const sql = "column = value";
