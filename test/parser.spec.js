@@ -1,4 +1,4 @@
-const parse = require("./../lib/parser.js");
+const { parse } = require("./../dist/parser");
 
 test("should parse simple query", () => {
   const sql = "column = value";
@@ -233,10 +233,10 @@ test('should parse "AND" operator', () => {
 });
 
 test('should parse "OR" operator', () => {
-  const sql = "column1 = value1 AND column2 = value2";
+  const sql = "column1 = value1 OR column2 = value2";
   const tree = {
     type: "group",
-    operator: "AND",
+    operator: "OR",
     children: [
       { type: "node", operator: "=", column: "column1", value: "value1" },
       { type: "node", operator: "=", column: "column2", value: "value2" },
@@ -317,4 +317,26 @@ test("should parse without spaces", () => {
     value: "value",
   };
   expect(parse(sql)).toStrictEqual(tree);
+});
+
+test("should parse without spaces with quotes", () => {
+  const sql = 'column="value"';
+  const tree = {
+    type: "node",
+    operator: "=",
+    column: "column",
+    value: "value",
+  };
+  expect(parse(sql)).toStrictEqual(tree);
+});
+
+test("should fail parse with few value refs", () => {
+  const sql = "column=value<>123";
+  const tree = {
+    type: "node",
+    operator: "=",
+    column: "column",
+    value: "value",
+  };
+  expect(() => parse(sql)).toThrow();
 });
