@@ -140,7 +140,16 @@ test('should parse query with "LIKE" operator', () => {
   expect(parse(sql)).toStrictEqual(tree);
 });
 
-// TODO add NOT LIKE operator
+test('should parse query with "NOT LIKE" operator', () => {
+  const sql = "city NOT LIKE '%cow%'";
+  const tree = {
+    type: "node",
+    operator: "NOT LIKE",
+    column: "city",
+    value: "%cow%",
+  };
+  expect(parse(sql)).toStrictEqual(tree);
+});
 
 test("should parse query with dot notation in column name", () => {
   const sql = "column.sub.subsub = value";
